@@ -61,6 +61,7 @@ class TekliCanliCardModel extends StatelessWidget {
           kuponTitle,
           textAlign: TextAlign.left,
           style: TextStyle(
+            color: Colors.white,
             fontSize: 18,
           ),
         ),

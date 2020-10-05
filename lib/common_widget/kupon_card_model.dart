@@ -7,27 +7,16 @@ class KuponCardWidget extends StatelessWidget {
   final double radius;
   final Coupon coupon;
   final BuildContext context;
-  final EdgeInsetsGeometry textPadding;
+  final EdgeInsetsGeometry textPadding = EdgeInsets.all(12);
   final String kuponTitle;
-  final beyazAlanTitleText1;
-  final beyazAlanSubTitleText;
-  final listTileTitleItemWPadding;
 
-  static const defaultListTileTitleItemWPadding =
-      EdgeInsets.only(left: 8.0, top: 3, bottom: 2);
-  static const defaultTextPadding = EdgeInsets.all(12);
 
   KuponCardWidget({
     @required this.coupon,
     @required this.kuponTitle,
     @required this.context,
-    Key key,
     this.radius: 12,
-    this.textPadding: defaultTextPadding,
-    this.listTileTitleItemWPadding: defaultListTileTitleItemWPadding,
-    this.beyazAlanTitleText1,
-    this.beyazAlanSubTitleText,
-
+    Key key,
   }) : super(key: key);
 
   @override
@@ -41,7 +30,6 @@ class KuponCardWidget extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => KuponDetailsPage(
-
                   coupon: coupon,
               ),
             ),
@@ -62,12 +50,13 @@ class KuponCardWidget extends StatelessWidget {
       );
 
   Widget get _listTileTitleItemWithPadding => Padding(
-        padding: listTileTitleItemWPadding,
+        padding: EdgeInsets.only(left: 8.0, top: 3, bottom: 2),
         child: Text(
           kuponTitle,
           textAlign: TextAlign.left,
           style: TextStyle(
             fontSize: 18,
+            color: Colors.white
           ),
         ),
       );
@@ -115,11 +104,65 @@ class KuponCardWidget extends StatelessWidget {
   }
 
 
+
+  Color renkBelirle(){
+    if (coupon.kuponDurum == "0") {
+      ///Beklemede
+      return Helper.anaRenk;
+
+    } else if (coupon.kuponDurum == "1") {
+      ///Kazandı
+      return Colors.green[600];
+
+    } else if (coupon.kuponDurum == "2") {
+      ///Kaybetti
+     return Colors.red[800];
+
+    }
+  }
+  Widget iconBelirle(){
+    Color color = renkBelirle();
+    if (coupon.kuponDurum == "0") {
+      ///Beklemede
+      return Container(
+        child: Text(
+          "Ücretsiz",
+          style: TextStyle(
+              fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      );
+
+    } else if (coupon.kuponDurum == "1") {
+      ///Kazandı
+      return Container(
+        color: color,
+        alignment: Alignment.center,
+        child: Icon(
+          Icons.check,
+          size: 18,
+          color: Colors.white,
+        ),
+      );
+
+    } else if (coupon.kuponDurum == "2") {
+      ///Kaybetti
+      return Container(
+        color: color,
+        alignment: Alignment.center,
+        child: Icon(
+          Icons.clear,
+          color: Colors.white,
+          size: 18,
+        ),
+      );
+
+    }
+  }
+
   Widget _itemEnAltBarItem2(String text) {
-    Color color;
-
-    Widget aaa;
-
+    Color color = renkBelirle();
+    Widget aaa = iconBelirle();
+    /*
     if (coupon.kuponDurum == "0") {
       ///Beklemede
       color = Helper.anaRenk;
@@ -155,7 +198,7 @@ class KuponCardWidget extends StatelessWidget {
           size: 18,
         ),
       );
-    }
+    }*/
     return Expanded(
       flex: 1,
       child: Container(

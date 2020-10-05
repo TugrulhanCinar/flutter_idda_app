@@ -5,11 +5,18 @@ import 'package:provider/provider.dart';
 import 'helper.dart';
 import 'pages/home_page.dart';
 
-//todo: bottom bar düzelt
-//todo: iletisim düzelt
 //todo: logoları ekle
 //todo: splashScreen ekle
-//todo:
+//todo: reklam mantığını hallet
+//todo: bizi yorumla
+//todo: maç veya kupon olmadıgındaki yazıyı ekle
+
+/*
+  canlı ve tekli sayfa geçişi reklamı göster
+  kupoon: ödüllü reklam koy
+  sayfa geçişi: maks:3
+  ödülü: Hepsini görsün
+ */
 void main() {
   setUpLocator();
   runApp(MyApp());

@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../view_models/kupon_view_model.dart';
 
 class CanliKuponPage extends StatelessWidget {
-  final String kuponTitle = "Canli";
-  final String ayracText = "Sonuçlanmış Canlilar";
+  final String kuponTitle = "Canlı";
+  final String ayracText = "Sonuçlanmış Canlılar";
 
   Widget build(BuildContext context) {
     return Consumer<KuponViewModel>(
@@ -29,14 +29,14 @@ class CanliKuponPage extends StatelessWidget {
         return Container();
       },
       itemBuilder: (context, index) {
-        var bottom = index == (value.canliGunlukCouponInt + 1) ? 14.0 : 40.0;
-        var top = index == (value.canliGunlukCouponInt + 1) ? 14.0 : 20.0;
+
+        var padding = index == (value.canliGunlukCouponInt ) ? 21.0 :10.0;
         if (index < value.canliGunlukCouponInt) {
           return Padding(
-            padding: const EdgeInsets.only(top: 14.0, bottom: 14),
+            padding: EdgeInsets.only(top: padding, bottom: padding),
             child: TekliCanliCardModel(
               kuponElement: value.allCanliKuponsItem[index].kupon[0],
-              kuponTitle: "Canli",
+              kuponTitle: kuponTitle,
               context: context,
             ),
           );
@@ -44,11 +44,11 @@ class CanliKuponPage extends StatelessWidget {
           return _item;
         } else {
           return Padding(
-            padding: EdgeInsets.only(top: top, bottom: bottom),
+            padding: EdgeInsets.only(top: padding, bottom: padding),
             child: TekliCanliCardModel(
               context: context,
               kuponElement: value.allCanliKuponsItem[index - 1].kupon[0],
-              kuponTitle: "Canli",
+              kuponTitle: kuponTitle,
             ),
           );
         }

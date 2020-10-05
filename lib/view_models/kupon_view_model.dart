@@ -106,9 +106,9 @@ class KuponViewModel with ChangeNotifier{
 
 
   ///Tekliler:
-  int get gecmisTekliCouponInt  => _gecmisTekliCoupon.length;
+  int get tekliGecmisCouponInt  => _gecmisTekliCoupon.length;
 
-  int get gunlukTekliCouponInt  => _gunlukTekliCoupon.length;
+  int get tekliGunlukCouponInt  => _gunlukTekliCoupon.length;
 
   ///Canlılar:
 

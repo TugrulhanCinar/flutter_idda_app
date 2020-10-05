@@ -52,6 +52,7 @@ class KuponDetailsPage extends StatelessWidget {
   Widget get titleText => Text(
         title,
         style: TextStyle(
+          color: Colors.white,
           fontSize: 22,
         ),
       );
@@ -77,7 +78,10 @@ class KuponDetailsPage extends StatelessWidget {
           title: title,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [titleText, gecici],
+            children: [
+              titleText,
+              gecici,
+            ],
           ),
         ),
       ),
@@ -161,9 +165,30 @@ class KuponDetailsPage extends StatelessWidget {
 
   Widget takimLigTarih(KuponElement kuponElement) {
     return ListTile(
-      title: Text(kuponElement.birinciTakim + "-" + kuponElement.ikinciTakim),
-      subtitle: Text(kuponElement.lig),
-      trailing: Text(kuponElement.macTarih),
+      title: takimLigTarihTitleItem(kuponElement),
+      subtitle: takimLigTarihSubTitle(kuponElement),
+      trailing: takimLigTarihTrailingItems(kuponElement),
+    );
+  }
+
+  Text takimLigTarihTitleItem(KuponElement kuponElement) =>
+      Text(kuponElement.birinciTakim + "-" + kuponElement.ikinciTakim);
+
+  Text takimLigTarihSubTitle(KuponElement kuponElement) =>
+      Text(kuponElement.lig + "-" + kuponElement.macTarih);
+
+  Padding takimLigTarihTrailingItems(KuponElement kuponElement) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 13.0),
+      child: Column(
+        children: [
+          Text(
+            kuponElement.tahmin.toUpperCase(),
+            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          ),
+          Text(kuponElement.oran.toString() + " Oran"),
+        ],
+      ),
     );
   }
 

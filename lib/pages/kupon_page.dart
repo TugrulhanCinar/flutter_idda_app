@@ -17,7 +17,6 @@ class KuponPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else return testList(value);
-
         }
     );
   }
@@ -30,50 +29,40 @@ class KuponPage extends StatelessWidget {
         return _divider;
       },
       itemBuilder: (context, index) {
+      //  var padding = index == (value.gunlukCouponInt ) ? 21.0 :10.0;
         if(index < value.gunlukCouponInt){
-          return KuponCardWidget(
-            coupon: value.allKuponsItem[index],
-            context: context,
-            kuponTitle: "Kupon",
+          return Padding(
+            padding: const EdgeInsets.only(top:18.0),
+            child: gunlukKuponlar(value, index, context),
           );
-        }else if(index == value.gecmisCoupon.length) {
+        }else if(index == value.gunlukCouponInt) {
           return _item;
         } else{
-         return KuponCardWidget(
-            coupon: value.allKuponsItem[index-1],
-            context: context,
-            kuponTitle: "Kupon",
-          );
+         return sonuclanmisKuponlar(value, index, context);
         }
       },
     );
   }
 
+  Widget gunlukKuponlar(KuponViewModel value, int index, BuildContext context) {
+    return KuponCardWidget(
+      coupon: value.allKuponsItem[index],
+      context: context,
+      kuponTitle: "Kupon",
+    );
+  }
+
+  Widget sonuclanmisKuponlar(KuponViewModel value, int index, BuildContext context) {
+    return KuponCardWidget(
+       coupon: value.allKuponsItem[index-1],
+       context: context,
+       kuponTitle: "Kupon",
+     );
+  }
+
   Widget get _divider => Divider(height: 30);
 
 
-
-  ListView gecmisKupon(KuponViewModel value) {
-    return value.gecmisCoupon.length > 0
-    ? ListView.separated(
-      itemCount: value.gecmisCoupon.length,
-
-      separatorBuilder: (context,index){
-        return Divider(
-          height: 15,
-        );
-      },
-
-      itemBuilder: (context,index){
-        return KuponCardWidget(
-          kuponTitle: "Kupon",
-          context: context,
-          coupon: value.gecmisCoupon[index],
-        );
-      },
-    )
-        : Text("Henüz Paylaşılmış maç yok ");
-  }
 
   Widget get _item => Container(
     width: 150,
@@ -91,29 +80,30 @@ class KuponPage extends StatelessWidget {
     ),
   );
 }
-
+///  bura ne işe yarıyo bilmiyorum
+///
 /*
- Widget gunlukKupon(KuponViewModel value) {
 
-    return value.gunlukCoupon.length > 0
-      ?
-     ListView.separated(
-              itemCount: value.gunlukCoupon.length,
-              shrinkWrap: true,
-              separatorBuilder: (context,index){
-                return Divider(
-                  height: 15,
-                );
-              },
 
-              itemBuilder: (context,index){
-                return KuponCardWidget(
-                  kuponTitle: "Kupon",
-                  coupon: value.gunlukCoupon[index],
-                );
-              },
-            )
+  ListView gecmisKupon(KuponViewModel value) {
+    return value.gecmisCoupon.length > 0
+        ? ListView.separated(
+      itemCount: value.gecmisCoupon.length,
 
-     : Text("Henüz Paylaşılmış maç yok ");
+      separatorBuilder: (context,index){
+        return Divider(
+          height: 15,
+        );
+      },
+
+      itemBuilder: (context,index){
+        return KuponCardWidget(
+          kuponTitle: "Kupon",
+          context: context,
+          coupon: value.gecmisCoupon[index],
+        );
+      },
+    )
+        : Text("Henüz Paylaşılmış maç yok ");
   }
  */

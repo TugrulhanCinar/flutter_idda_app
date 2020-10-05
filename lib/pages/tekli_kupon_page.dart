@@ -26,31 +26,38 @@ class TekliKuponPage extends StatelessWidget {
         return Container();
       },
       itemBuilder: (context, index) {
-        var bottom = index == (value.canliGunlukCouponInt + 1) ? 14.0 : 40.0;
-        var top = index == (value.canliGunlukCouponInt + 1) ? 14.0 : 20.0;
-        if (index < value.gunlukTekliCouponInt) {
-          return Padding(
-            padding: EdgeInsets.only(top: top, bottom: bottom),
-            child: TekliCanliCardModel(
-              context: context,
-              kuponElement: value.allTekliKuponsItem[index].kupon[0],
-              kuponTitle: kuponTitle,
-            ),
-          );
-        } else if (index == value.gunlukTekliCouponInt) {
+        var padding = index == (value.tekliGunlukCouponInt ) ? 21.0 : 10.0;
+        if (index < value.tekliGunlukCouponInt) {
+          return gunlukTekliKupon(padding, context, value, index);
+        } else if (index == value.tekliGunlukCouponInt) {
           return _item;
         } else {
-          return Padding(
-            padding: EdgeInsets.only(top: top, bottom: bottom),
-            child: TekliCanliCardModel(
-              context: context,
-              kuponElement: value.allTekliKuponsItem[index - 1].kupon[0],
-              kuponTitle: kuponTitle,
-            ),
-          );
+          return sonuclanmisTekliKupon(padding, context, value, index);
         }
       },
     );
+  }
+
+  Padding sonuclanmisTekliKupon(double padding, BuildContext context, KuponViewModel value, int index) {
+    return Padding(
+          padding: EdgeInsets.only(top: padding, bottom: padding),
+          child: TekliCanliCardModel(
+            context: context,
+            kuponElement: value.allTekliKuponsItem[index - 1].kupon[0],
+            kuponTitle: kuponTitle,
+          ),
+        );
+  }
+
+  Padding gunlukTekliKupon(double padding, BuildContext context, KuponViewModel value, int index) {
+    return Padding(
+          padding: EdgeInsets.only(top: padding, bottom: padding),
+          child: TekliCanliCardModel(
+            context: context,
+            kuponElement: value.allTekliKuponsItem[index].kupon[0],
+            kuponTitle: kuponTitle,
+          ),
+        );
   }
 
   Widget get _item => Container(
