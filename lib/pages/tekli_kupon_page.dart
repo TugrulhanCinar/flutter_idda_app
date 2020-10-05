@@ -14,7 +14,15 @@ class TekliKuponPage extends StatelessWidget {
           return Center(
             child: CircularProgressIndicator(),
           );
-        } else  return tekliKuponsListView(value);
+        } else
+          return value.allTekliKuponsItem.length > 0
+              ? tekliKuponsListView(value)
+              : Center(
+                  child: Text(
+                    "Paylaşılmış Maç Yok",
+                    style: TextStyle(color: Colors.white, fontSize: 48),
+                  ),
+                );
       },
     );
   }
@@ -26,7 +34,7 @@ class TekliKuponPage extends StatelessWidget {
         return Container();
       },
       itemBuilder: (context, index) {
-        var padding = index == (value.tekliGunlukCouponInt ) ? 21.0 : 10.0;
+        var padding = index == (value.tekliGunlukCouponInt) ? 21.0 : 10.0;
         if (index < value.tekliGunlukCouponInt) {
           return gunlukTekliKupon(padding, context, value, index);
         } else if (index == value.tekliGunlukCouponInt) {
@@ -38,26 +46,28 @@ class TekliKuponPage extends StatelessWidget {
     );
   }
 
-  Padding sonuclanmisTekliKupon(double padding, BuildContext context, KuponViewModel value, int index) {
+  Padding sonuclanmisTekliKupon(
+      double padding, BuildContext context, KuponViewModel value, int index) {
     return Padding(
-          padding: EdgeInsets.only(top: padding, bottom: padding),
-          child: TekliCanliCardModel(
-            context: context,
-            kuponElement: value.allTekliKuponsItem[index - 1].kupon[0],
-            kuponTitle: kuponTitle,
-          ),
-        );
+      padding: EdgeInsets.only(top: padding, bottom: padding),
+      child: TekliCanliCardModel(
+        context: context,
+        kuponElement: value.allTekliKuponsItem[index - 1].kupon[0],
+        kuponTitle: kuponTitle,
+      ),
+    );
   }
 
-  Padding gunlukTekliKupon(double padding, BuildContext context, KuponViewModel value, int index) {
+  Padding gunlukTekliKupon(
+      double padding, BuildContext context, KuponViewModel value, int index) {
     return Padding(
-          padding: EdgeInsets.only(top: padding, bottom: padding),
-          child: TekliCanliCardModel(
-            context: context,
-            kuponElement: value.allTekliKuponsItem[index].kupon[0],
-            kuponTitle: kuponTitle,
-          ),
-        );
+      padding: EdgeInsets.only(top: padding, bottom: padding),
+      child: TekliCanliCardModel(
+        context: context,
+        kuponElement: value.allTekliKuponsItem[index].kupon[0],
+        kuponTitle: kuponTitle,
+      ),
+    );
   }
 
   Widget get _item => Container(

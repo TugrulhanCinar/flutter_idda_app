@@ -1,6 +1,10 @@
+import 'dart:wasm';
+
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutteriddaapp/icons/custom_icons.dart';
+import 'package:flutteriddaapp/view_models/kupon_view_model.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'contact_page.dart';
 import 'file:///E:/flutterProject/flutter_idda_app/lib/pages/kupon_page.dart';
@@ -18,7 +22,10 @@ class _HomePageState extends State<HomePage> {
   final String _logo = "assets/images/logo.png";
   int selectedIndex = 1;
   var pages = [CanliKuponPage(), TekliKuponPage(), KuponPage()];
-  final  url = 'https://proanaliz.net';
+  final url = 'https://proanaliz.net';
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +33,20 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: _bottomNavigationBar,
       //bottomNavigationBar: _bottomNavigationBar3,
       appBar: _appBar,
-      body: pages[selectedIndex],
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        child: pages[selectedIndex],
+        onRefresh: _refresh,
+      ),
       //body: ContactPage(),
     );
   }
+  Future<Null> _refresh() async{
+    final _kuponViewModel = Provider.of<KuponViewModel>(context,listen: false);
+    _kuponViewModel.fetchAllKupons();
 
+    return await Future.delayed(Duration(seconds: 1));
+  }
   Widget get _appBar => AppBar(elevation: 0, title: _appBarImages);
 
   Widget get _appBarImages => Image.asset(_logo, height: 32);
@@ -103,13 +119,17 @@ class _HomePageState extends State<HomePage> {
           listTileElement(Icons.star, "Bizi Yorumla", () {
             Navigator.pop(context);
           }),
-          listTileElement(Icons.alternate_email, "proanaliz.net", () {
-            Navigator.pop(context);
-            _launchURL();
-          },
+          listTileElement(
+            Icons.alternate_email,
+            "proanaliz.net",
+            () {
+              Navigator.pop(context);
+              _launchURL();
+            },
           )
         ],
       );
+
   _launchURL() async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -117,6 +137,7 @@ class _HomePageState extends State<HomePage> {
       throw 'Could not launch $url';
     }
   }
+
   Widget listTileElement(
       IconData iconData, String text, GestureTapCallback onTap) {
     return Padding(

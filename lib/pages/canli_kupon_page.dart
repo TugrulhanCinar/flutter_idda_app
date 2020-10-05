@@ -15,7 +15,13 @@ class CanliKuponPage extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else
-          return canliKuponsListView(value);
+          return value.allCanliKuponsItem.length > 0
+              ? canliKuponsListView(value)
+              : Center(
+              child: Text(
+                "Paylaşılmış Canlı Maç Yok",
+                style: TextStyle(color: Colors.white, fontSize: 48),
+              ));
       },
     );
   }

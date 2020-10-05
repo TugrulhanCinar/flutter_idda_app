@@ -47,12 +47,29 @@ class KuponViewModel with ChangeNotifier{
   }
   Future<Kupon> fetchAllKupons() async{
     state = KuponModelState.Busy;
+    allListClear();
+
     kupon = await _kuponRepository.fetchAllKupons();
     kuponuAyir();
     state = KuponModelState.Loaded;
     return kupon;
   }
+  void  allListClear(){
+    kupon ?? kupon.coupons.clear();
 
+    ///Canlı:
+    _gecmisCoupon.clear();
+    _gunlukCoupon.clear();
+    allCanliKuponsItem.clear();
+    ///tekli:
+    _gecmisTekliCoupon.clear();
+    _gunlukTekliCoupon.clear();
+    allTekliKuponsItem.clear();
+    ///canli:
+    _canliGecmisCoupon.clear();
+    _canliGunlukCoupon.clear();
+    allKuponsItem.clear();
+  }
   void kuponuAyir() {
     //_coupon = kupon.coupons;
     KuponElement element;

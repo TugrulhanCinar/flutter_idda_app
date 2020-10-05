@@ -9,16 +9,19 @@ class KuponPage extends StatelessWidget {
   final String ayracText = "Sonuçlanmış Kuponlar";
 
   Widget build(BuildContext context) {
-
     return Consumer<KuponViewModel>(
         builder: (BuildContext context, KuponViewModel value, Widget child) {
-          if (value.state == KuponModelState.Busy) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else return testList(value);
-        }
-    );
+      if (value.state == KuponModelState.Busy) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      } else
+        //todo: düzelt
+        
+        return value.allKuponsItem.length > 0
+            ? testList(value)
+            : Center(child: Text("Paylaşılmış kupon Yok",style: TextStyle(color: Colors.white,fontSize: 48),));
+    });
   }
 
   Widget testList(KuponViewModel value) {
@@ -29,16 +32,16 @@ class KuponPage extends StatelessWidget {
         return _divider;
       },
       itemBuilder: (context, index) {
-      //  var padding = index == (value.gunlukCouponInt ) ? 21.0 :10.0;
-        if(index < value.gunlukCouponInt){
+        //  var padding = index == (value.gunlukCouponInt ) ? 21.0 :10.0;
+        if (index < value.gunlukCouponInt) {
           return Padding(
-            padding: const EdgeInsets.only(top:18.0),
+            padding: const EdgeInsets.only(top: 18.0),
             child: gunlukKuponlar(value, index, context),
           );
-        }else if(index == value.gunlukCouponInt) {
+        } else if (index == value.gunlukCouponInt) {
           return _item;
-        } else{
-         return sonuclanmisKuponlar(value, index, context);
+        } else {
+          return sonuclanmisKuponlar(value, index, context);
         }
       },
     );
@@ -52,34 +55,34 @@ class KuponPage extends StatelessWidget {
     );
   }
 
-  Widget sonuclanmisKuponlar(KuponViewModel value, int index, BuildContext context) {
+  Widget sonuclanmisKuponlar(
+      KuponViewModel value, int index, BuildContext context) {
     return KuponCardWidget(
-       coupon: value.allKuponsItem[index-1],
-       context: context,
-       kuponTitle: "Kupon",
-     );
+      coupon: value.allKuponsItem[index - 1],
+      context: context,
+      kuponTitle: "Kupon",
+    );
   }
 
   Widget get _divider => Divider(height: 30);
 
-
-
   Widget get _item => Container(
-    width: 150,
-    decoration: BoxDecoration(
-      color: Colors.black54,
-      borderRadius: BorderRadius.all(Radius.circular(12)),
-    ),
-    margin: EdgeInsets.symmetric(horizontal: 40),
-    padding: EdgeInsets.symmetric(vertical: 8),
-    child: Text(
-      ayracText,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-          fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
-    ),
-  );
+        width: 150,
+        decoration: BoxDecoration(
+          color: Colors.black54,
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
+        margin: EdgeInsets.symmetric(horizontal: 40),
+        padding: EdgeInsets.symmetric(vertical: 8),
+        child: Text(
+          ayracText,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      );
 }
+
 ///  bura ne işe yarıyo bilmiyorum
 ///
 /*
