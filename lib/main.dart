@@ -9,7 +9,7 @@ import 'pages/home_page.dart';
 //todo: splashScreen ekle
 //todo: reklam mantığını hallet
 //todo: bizi yorumla
-//todo: maç veya kupon olmadıgındaki yazıyı ekle
+
 
 /*
   canlı ve tekli sayfa geçişi reklamı göster
